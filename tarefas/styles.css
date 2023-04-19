@@ -1,5 +1,5 @@
 .container {
-    width: 500px;
+    width: 700px;
     margin: 0 auto;
 }
 
@@ -54,4 +54,6 @@ td {
     padding: 10px;
     border-bottom: 1px solid;
     font-family: sans-serif;
+    width: 1px;
+    white-space: nowrap;
 }
