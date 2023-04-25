@@ -5,10 +5,11 @@ session_start();
 include "banco.php";
 include "ajudantes.php";
 
-$exibir_tabela = true;
+$exibir_tabela = false;
 
 if (isset($_GET['nome']) && $_GET['nome'] != '') {
     $tarefa = array();
+    $tarefa['id'] = $_GET['id'];
 
     $tarefa['nome'] = $_GET['nome'];
 
@@ -17,8 +18,7 @@ if (isset($_GET['nome']) && $_GET['nome'] != '') {
     } else {
         $tarefa['descricao'] = '';
     }
-
-    if (isset($_GET['prazo']) && !empty($_GET['prazo'])) {
+    if (isset($_GET['prazo'])) {
         $tarefa['prazo'] = $_GET['prazo'];  /*traduzir_data_para_banco();*/
     } else {
         $tarefa['prazo'] = '1900-01-01';
@@ -32,19 +32,10 @@ if (isset($_GET['nome']) && $_GET['nome'] != '') {
         $tarefa['concluida'] = 0;
     }
 
-    gravar_tarefa($conexao, $tarefa);
+    editar_tarefa($conexao, $tarefa);
 }
 
-$lista_tarefas = buscar_tarefas($conexao);
-
-$tarefa = array(
-    'id' => 0,
-    'nome' => '',
-    'descricao' => '',
-    'prazo' => '',
-    'prioridade' => 1,
-    'concluida' => ''
-);
+$tarefa = buscar_tarefa($conexao, $_GET['id']);
 
 include 'template.php';
 
